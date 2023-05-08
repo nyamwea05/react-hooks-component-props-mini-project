@@ -1,23 +1,30 @@
-import React from 'react';
+import React from "react";
 
-const Article = ({ title, date = "January 1, 1970", preview }) => {
-  const minutes = Math.ceil(preview.split(' ').length / 200);
-  let emoji = '';
+function Article(props) {
+  const dateStr = props.date ? props.date : "January 1, 1970";
+  const minutesRead = props.minutes;
 
-  if (minutes < 30) {
-    const coffeeCups = Math.ceil(minutes / 5);
-    emoji = '☕️'.repeat(coffeeCups);
+  const coffeeCups = Math.ceil(minutesRead / 5);
+  const bentoBoxes = Math.ceil(minutesRead / 10);
+
+  let emoji = "";
+  if (minutesRead < 30) {
+    emoji = "☕️";
   } else {
-    const bentoBoxes = Math.ceil(minutes / 10);
-    emoji = '🍱'.repeat(bentoBoxes);
+    emoji = "🍱";
+  }
+
+  let emojiStr = "";
+  for (let i = 0; i < (minutesRead < 30 ? coffeeCups : bentoBoxes); i++) {
+    emojiStr += emoji;
   }
 
   return (
     <article>
-      <h3>{title}</h3>
-      <small>{date}</small>
-      <p>{preview}</p>
-      <span>{emoji} {minutes} min read</span>
+      <h3>{props.title}</h3>
+      <small>{dateStr}</small>
+      <p>{props.preview}</p>
+      <p>{emojiStr + " " + minutesRead + " min read"}</p>
     </article>
   );
 }

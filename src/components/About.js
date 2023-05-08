@@ -1,10 +1,14 @@
-import React from 'react';
 
-const About = ({ image = "https://via.placeholder.com/215", about }) => {
+import React from "react";
+
+function About(props) {
+  const imageSrc = props.image ? props.image : "https://via.placeholder.com/215";
+  const altText = "blog logo";
+
   return (
     <aside>
-      <img src={image} alt="blog logo" />
-      <p>{about}</p>
+      <img src={imageSrc} alt={altText} />
+      <p>{props.about}</p>
     </aside>
   );
 }
